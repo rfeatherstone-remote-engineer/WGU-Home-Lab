@@ -10,8 +10,12 @@ print("=========================================")
 total, used, free = shutil.disk_usage("/")
 print(f"💾 Disk Space Total: {total // (2**30)} GB")
 print(f"💾 Disk Space Used : {used // (2**30)} GB")
-print(f"💾 Disk Space Free : {free // (2**30)} GB")
 
+free_gb = free // (2**30)
+if free_gb < 5:
+    print(" WARNING: LOW DISK SPACE!")
+else: 
+    print(" Disk health status: OPTIONAL.")
 # 2. Check System Memory (RAM) allocation using native Linux tools
 print("\n🧠 Memory Allocation Status (in MB):")
 subprocess.run(["free", "-m"])
