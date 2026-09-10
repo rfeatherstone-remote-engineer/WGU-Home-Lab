@@ -1,0 +1,12 @@
+ # Ignore local Terraform runtime and state records
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Ignore local output text files and logs
+hello-devops.txt
+*.log
+
+# Ignore macOS system tracking files
+.DS_Store
