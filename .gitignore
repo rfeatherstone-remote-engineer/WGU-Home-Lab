@@ -1,12 +1,66 @@
- # Ignore local Terraform runtime and state records
+# ==============================================================================
+# 1. Declarative Infrastructure & Configuration Tracking Protocols (Terraform)
+# ==============================================================================
+# Local execution dependencies, binary plugins, and mirror indices
 .terraform/
-*.tfstate
-*.tfstate.backup
 .terraform.lock.hcl
 
-# Ignore local output text files and logs
-hello-devops.txt
-*.log
+# Local state validation records and environment history tracking matrices
+*.tfstate
+*.tfstate.backup
+*.tfstate.*.backup
 
-# Ignore macOS system tracking files
+# Environmental variable overrides and secret token definitions
+*.tfvars
+*.tfvars.json
+*.tfvars.lock
+text.tfvars
+
+# Local configuration overrides and developer-specific adjustments
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Crash dumps and structural diagnostics records
+crash.log
+crash.*.log
+
+# ==============================================================================
+# 2. Localized Runtime Diagnostics & Persistent Logging Protocols
+# ==============================================================================
+# Wildcard telemetry catches and text buffers
+*.log
+hello-devops.txt
+
+# Application diagnostic runtimes
+system_health.log
+
+# ==============================================================================
+# 3. Environment Variable Encapsulation & Operational Secrets
+# ==============================================================================
+# Strict tracking exclusion for plain-text infrastructure secrets
+.env
+.env.*
+.secrets
+*.pem
+*.key
+*.pub
+
+# ==============================================================================
+# 4. Host OS Filesystem Metadata Exclusions
+# ==============================================================================
+# macOS tracking layers and finder indexes
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux desktop environmental databases
+.directory
+
+# Windows desktop layout tracking vectors
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
