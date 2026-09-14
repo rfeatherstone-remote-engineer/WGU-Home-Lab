@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  localstack:
+    container_name: localstack_main
+    image: localstack/localstack:latest
+    ports:
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:4510-4559:4510-4559"
+    environment:
+      - SERVICES=s3,iam,sts
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - DOCKER_FLAGS=-d
+    volumes:
+      - "./localstack_data:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - engineering_network
+
+networks:
+  engineering_network:
+    name: local_infra_bridge
+    driver: bridge

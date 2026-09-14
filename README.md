@@ -75,4 +75,3 @@ docker run -d -p 8080:80 --name production-ingress localized-web-ingress:v1
 ```bash
 python3 system_monitor.py >> system_health.log &
 ```
-
