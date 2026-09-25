@@ -4,18 +4,38 @@ An automated, localized multi-tool sandbox environment natively optimized for AR
 
 ## 🏗️ System Architecture & Connectivity
 
-```text
-[ Local Client Machine ] 
-       │
-       ▼ (VS Code Remote-SSH Socket via Cryptographic Asymmetric Keys)
-[ Ubuntu-ARM64 VM Host ]
-       │
-       ├───► [ Terraform Engine ] ──► (Local State Management & Isolation Rules)
-       │
-       └───► [ Docker Engine ]
-                   │
-                   ▼ (Deterministic Bridge Mapping / Port 8080:80 Ingress)
-             [ Containerized Nginx Web Server ]
+       ┌────────────────────────────────────────────────────────┐
+       │             Upstream GitHub Remote Repository          │
+       │            (Declarative Source of Truth / IaC)         │
+       └────────────────────────────────────────────────────────┘
+            ▲                                      │
+            │ (Secure Auth Token Push)             │ (Continuous GitOps Sync)
+            │                                      ▼
+┌───────────────────────┐              ┌────────────────────────────────┐
+│  macOS Local Client   │              │   Flux CD GitOps Engine        │
+│  (M1 Mac, 8GB RAM)    │              │   (Automated Reconciliation)   │
+└───────────────────────┘              └────────────────────────────────┘
+    │                                              │
+    │ (Secure Asymmetric Remote-SSH)               │ (Declarative Desired State)
+    ▼                                              ▼
+┌───────────────────────────────────────────────────────────────────────┐
+│ Ubuntu-ARM64 VM Host (Headless Resource-Optimized Hypervisor via UTM) │
+├───────────────────────────────────────────────────────────────────────┤
+│                                                                       │
+│  ├── [ Terraform Engine ] ──> (Local State & Structural Isolation)    │
+│  │                                                                    │
+│  ├── [ Standalone Docker Engine ]                                     │
+│  │     └── (Deterministic Bridge Mapping ──> Host:8080 -> Container:80)
+│  │           └── [ Containerized Nginx Web Server ]                   │
+│  │                                                                    │
+│  ├── [ K3s Lightweight Kubernetes Cluster ]                           │
+│  │     ├── [ Namespace: flux-system ] ──> (Source & Kustomize Loops)  │
+│  │     └── [ Microservice Runtime ] ──> [ Alpine-Nginx Target Pods ]  │
+│  │                                                                    │
+│  └── [ Python Monitoring Daemon ] ──> (system_monitor.py Telemetry)   │
+│                                                                       │
+└───────────────────────────────────────────────────────────────────────┘
+
 ```
 
 ---
