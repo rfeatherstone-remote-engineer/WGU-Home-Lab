@@ -1,37 +1,36 @@
 # Localized GitOps Multi-Tool Sandbox: ARM64 Infrastructure & Telemetry
 
-An automated, localized multi-tool sandbox environment natively optimized for ARM64/AArch64 architectures inside an Ubuntu Virtual Machine. This repository demonstrates infrastructure orchestration via Declarative Configuration Management (IaC), secure cryptographic network loops, containerized application delivery, and deterministic performance telemetry.
++-----------------------------------------------------------------------+
 
-## 🏗️ System Architecture & Connectivity
- ┌─────────────────────────────────────────────────────────┐
- │            Upstream GitHub Remote Repository            │
- │           (Declarative Source of Truth / IaC)           │
- └────────────────────────────┬────────────────────────────┘
-                              │
-                              │ (Continuous GitOps Sync)
-                              ▼
- ┌─────────────────────────────────────────────────────────┐
- │               Flux CD GitOps Engine                     │
- │             (Automated Reconciliation)                  │
- └────────────────────────────┬────────────────────────────┘
-                              │
-                              │ (Declarative Desired State)
-                              ▼
- ┌─────────────────────────────────────────────────────────┐
- │         Ubuntu-ARM64 Virtual Machine Host               │
- │    (Headless Resource-Optimized Hypervisor via UTM)     │
- ├─────────────────────────────────────────────────────────┤
- │                                                         │
- │  ├── [ Terraform Engine ] ──> Local State Isolation     │
- │  │                                                      │
- │  ├── [ Docker Engine ]    ──> Nginx Web Bridge (8080:80)│
- │  │                                                      │
- │  ├── [ K3s Kubernetes ]   ──> flux-system & Target Pods │
- │  │                                                      │
- │  └── [ Python Daemon ]    ──> system_monitor.py Engine  │
- │                                                         │
- └─────────────────────────────────────────────────────────┘
+|                   Upstream GitHub Remote Repository                   |
+|                  (Declarative Source of Truth / IaC)                  |
++--------------------------------───┬─── Chat/Push Loop ────────────────+
+                                    │
+                                    │ (Continuous GitOps Sync)
+                                    ▼
++-----------------------------------------------------------------------+
 
+|                         Flux CD GitOps Engine                         |
+|                       (Automated Reconciliation)                      |
++--------------------------------───┬───────────────────────────────────+
+                                    │
+                                    │ (Declarative Desired State)
+                                    ▼
++-----------------------------------------------------------------------+
+
+|                  Ubuntu-ARM64 Virtual Machine Host                    |
+|           (Headless Resource-Optimized Hypervisor via UTM)            |
++-----------------------------------------------------------------------+
+
+ |                                                                     |
+ |-- [ Terraform Engine ] --------> Local State Isolation              |
+ |                                                                     |
+ |-- [ Standalone Docker Engine ] -> Nginx Web Bridge (Port 8080:80)   |
+ |                                                                     |
+ |-- [ K3s Kubernetes Cluster ] --> flux-system & Target Pod Runtimes  |
+ |                                                                     |
+ +-- [ Python Monitoring Daemon ] -> system_monitor.py Metric Telemetry|
++-----------------------------------------------------------------------+
 
 ```
 
