@@ -1,36 +1,26 @@
 # Localized GitOps Multi-Tool Sandbox: ARM64 Infrastructure & Telemetry
 
-+-----------------------------------------------------------------------+
+```text
+┌──────────────────────────────────────────────────────┐
+│          Upstream GitHub Remote (GitOps IaC)         │
+└──────────────────────────┬───────────────────────────┘
+                           │ (Continuous Sync)
+                           ▼
+┌──────────────────────────────────────────────────────┐
+│       Flux CD Engine (Automated Reconciliation)      │
+└──────────────────────────┬───────────────────────────┘
+                           │ (Desired State)
+                           ▼
+┌──────────────────────────────────────────────────────┐
+│            Ubuntu VM Host (M1 Mac / UTM)             │
+├──────────────────────────────────────────────────────┤
+│ ├── [Terraform] ──> Local State Isolation            │
+│ ├── [Docker]    ──> Nginx Web Bridge (8080:80)       │
+│ ├── [K3s K8s]   ──> flux-system & Target Pods        │
+│ └── [Python]    ──> system_monitor.py Telemetry      │
+└──────────────────────────────────────────────────────┘
+```
 
-|                   Upstream GitHub Remote Repository                   |
-|                  (Declarative Source of Truth / IaC)                  |
-+--------------------------------───┬─── Chat/Push Loop ────────────────+
-                                    │
-                                    │ (Continuous GitOps Sync)
-                                    ▼
-+-----------------------------------------------------------------------+
-
-|                         Flux CD GitOps Engine                         |
-|                       (Automated Reconciliation)                      |
-+--------------------------------───┬───────────────────────────────────+
-                                    │
-                                    │ (Declarative Desired State)
-                                    ▼
-+-----------------------------------------------------------------------+
-
-|                  Ubuntu-ARM64 Virtual Machine Host                    |
-|           (Headless Resource-Optimized Hypervisor via UTM)            |
-+-----------------------------------------------------------------------+
-
- |                                                                     |
- |-- [ Terraform Engine ] --------> Local State Isolation              |
- |                                                                     |
- |-- [ Standalone Docker Engine ] -> Nginx Web Bridge (Port 8080:80)   |
- |                                                                     |
- |-- [ K3s Kubernetes Cluster ] --> flux-system & Target Pod Runtimes  |
- |                                                                     |
- +-- [ Python Monitoring Daemon ] -> system_monitor.py Metric Telemetry|
-+-----------------------------------------------------------------------+
 
 ```
 
