@@ -42,22 +42,6 @@
 * **Telemetry Automation:** Authored algorithmic Python utility engines (`system_monitor.py`) to systematically monitor hardware utilization without polling overhead.
 * **Persistence Engineering:** Programmed standardized append loops to stream runtime performance diagnostics cleanly into tracking databases (`system_health.log`), modeling production event-driven logging frameworks.
 
----
-
-## 📂 Repository Structure
-
-```text
-├── Docker-folder/
-│   └── Dockerfile               # Multi-stage Nginx compilation recipe
-├── Terraform-folder/
-│   ├── main.tf                  # Localized IaC provisioning configurations
-│   └── terraform.tfstate        # [EXCLUDED VIA GITIGNORE] Local state tracking
-├── .gitignore                   # Operational boundary protocol rules
-├── README.md                    # System architecture documentation
-├── quick_push.sh                # Automation pipeline sync utility
-├── system_health.log            # Telemetry tracking output destination
-└── system_monitor.py            # Automated hardware metric retrieval engine
-```
 
 ---
 
