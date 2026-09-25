@@ -2,6 +2,7 @@
 
 The diagram below outlines the deterministic lifecycle of this sandbox environment. Every infrastructure change is declared as code, validated upstream, and automatically synchronized to the local runtime environment to enforce a strict zero-drift baseline.
 
+```text
 ┌──────────────────────────────────────────────────────┐
 │          Upstream GitHub Remote (GitOps IaC)         │
 └──────────────────────────┬───────────────────────────┘
@@ -21,6 +22,7 @@ The diagram below outlines the deterministic lifecycle of this sandbox environme
 │ └── [Python]    ──> system_monitor.py Telemetry      │
 └──────────────────────────────────────────────────────┘
 ```
+
 ```
 
 ### 🎯 Architecture Execution Summary
