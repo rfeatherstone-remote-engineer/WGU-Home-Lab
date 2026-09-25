@@ -3,38 +3,35 @@
 An automated, localized multi-tool sandbox environment natively optimized for ARM64/AArch64 architectures inside an Ubuntu Virtual Machine. This repository demonstrates infrastructure orchestration via Declarative Configuration Management (IaC), secure cryptographic network loops, containerized application delivery, and deterministic performance telemetry.
 
 ## 🏗️ System Architecture & Connectivity
+ ┌─────────────────────────────────────────────────────────┐
+ │            Upstream GitHub Remote Repository            │
+ │           (Declarative Source of Truth / IaC)           │
+ └────────────────────────────┬────────────────────────────┘
+                              │
+                              │ (Continuous GitOps Sync)
+                              ▼
+ ┌─────────────────────────────────────────────────────────┐
+ │               Flux CD GitOps Engine                     │
+ │             (Automated Reconciliation)                  │
+ └────────────────────────────┬────────────────────────────┘
+                              │
+                              │ (Declarative Desired State)
+                              ▼
+ ┌─────────────────────────────────────────────────────────┐
+ │         Ubuntu-ARM64 Virtual Machine Host               │
+ │    (Headless Resource-Optimized Hypervisor via UTM)     │
+ ├─────────────────────────────────────────────────────────┤
+ │                                                         │
+ │  ├── [ Terraform Engine ] ──> Local State Isolation     │
+ │  │                                                      │
+ │  ├── [ Docker Engine ]    ──> Nginx Web Bridge (8080:80)│
+ │  │                                                      │
+ │  ├── [ K3s Kubernetes ]   ──> flux-system & Target Pods │
+ │  │                                                      │
+ │  └── [ Python Daemon ]    ──> system_monitor.py Engine  │
+ │                                                         │
+ └─────────────────────────────────────────────────────────┘
 
-       ┌────────────────────────────────────────────────────────┐
-       │             Upstream GitHub Remote Repository          │
-       │            (Declarative Source of Truth / IaC)         │
-       └────────────────────────────────────────────────────────┘
-            ▲                                      │
-            │ (Secure Auth Token Push)             │ (Continuous GitOps Sync)
-            │                                      ▼
-┌───────────────────────┐              ┌────────────────────────────────┐
-│  macOS Local Client   │              │   Flux CD GitOps Engine        │
-│  (M1 Mac, 8GB RAM)    │              │   (Automated Reconciliation)   │
-└───────────────────────┘              └────────────────────────────────┘
-    │                                              │
-    │ (Secure Asymmetric Remote-SSH)               │ (Declarative Desired State)
-    ▼                                              ▼
-┌───────────────────────────────────────────────────────────────────────┐
-│ Ubuntu-ARM64 VM Host (Headless Resource-Optimized Hypervisor via UTM) │
-├───────────────────────────────────────────────────────────────────────┤
-│                                                                       │
-│  ├── [ Terraform Engine ] ──> (Local State & Structural Isolation)    │
-│  │                                                                    │
-│  ├── [ Standalone Docker Engine ]                                     │
-│  │     └── (Deterministic Bridge Mapping ──> Host:8080 -> Container:80)
-│  │           └── [ Containerized Nginx Web Server ]                   │
-│  │                                                                    │
-│  ├── [ K3s Lightweight Kubernetes Cluster ]                           │
-│  │     ├── [ Namespace: flux-system ] ──> (Source & Kustomize Loops)  │
-│  │     └── [ Microservice Runtime ] ──> [ Alpine-Nginx Target Pods ]  │
-│  │                                                                    │
-│  └── [ Python Monitoring Daemon ] ──> (system_monitor.py Telemetry)   │
-│                                                                       │
-└───────────────────────────────────────────────────────────────────────┘
 
 ```
 
